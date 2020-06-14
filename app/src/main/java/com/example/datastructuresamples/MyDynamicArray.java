@@ -50,7 +50,7 @@ public class MyDynamicArray<T> implements Iterable<T> {
         return null;
     }
 
-    //Add elements
+    //Add elements - O(1)
     public void addElement(T newElement) {
 
         //Check index of last populated item in the array
@@ -71,7 +71,7 @@ public class MyDynamicArray<T> implements Iterable<T> {
         }
     }
 
-    //Remove element at index
+    //Remove element at index - O(n)
     public void deleteElementAt(int index) {
         //Create a temp array with all values from array except the one at given index
         //for this the temp array size is one less than current array size
@@ -90,12 +90,12 @@ public class MyDynamicArray<T> implements Iterable<T> {
         last_item_index--;
     }
 
-    //Get element at index
+    //Get element at index - O(1)
     public T getElementAt(int index) {
         return (T) array[index];
     }
 
-    //Get index of element
+    //Get index of element - O(n)
     public int getIndexOfElement(T item) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == item) {

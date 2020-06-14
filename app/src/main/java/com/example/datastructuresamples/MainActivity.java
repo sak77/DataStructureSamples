@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         Car(String strName, String strColor, String strManufacturer) {
             this.name = strName;
             this.color = strManufacturer;
-            this.color= strColor;
+            this.color = strColor;
         }
     }
 
@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //workWithDynamicArrays();
-        dllOperations();
+        //dllOperations();
+        //pushandpoptrial();
+        validateBrackets("[]{}({})");
     }
 
 
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Array operations
     private void populateArray() {
         for (int i = 0; i < 10; i++) {
             Car myCar = new Car("Car Name " + i, "Color " + i, "Manufacturer " + i);
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("TAG", "Car Name = " + currentCar.name + ", Color = " + currentCar.color);
         }
     }
+
 
     //My doubly linked lists
     private void dllOperations() {
@@ -115,11 +119,11 @@ public class MainActivity extends AppCompatActivity {
     public void removeLastFromDll() {
         //Print data before removing element
         Log.i("TAG", "Original DLL size " + myDoublyLinkedList.getLinked_list_size());
-        Car lastCar = myDoublyLinkedList.getElementAtIndex(myDoublyLinkedList.linked_list_size -1);
+        Car lastCar = myDoublyLinkedList.getElementAtIndex(myDoublyLinkedList.linked_list_size - 1);
         Log.i("TAG", "Last car name - " + lastCar.name);
         myDoublyLinkedList.removeItemAtEnd();
         Log.i("TAG", "New DLL size " + myDoublyLinkedList.getLinked_list_size());
-        Car newLastCar = myDoublyLinkedList.getElementAtIndex(myDoublyLinkedList.linked_list_size -1);
+        Car newLastCar = myDoublyLinkedList.getElementAtIndex(myDoublyLinkedList.linked_list_size - 1);
         Log.i("TAG", "New Last car name - " + newLastCar.name);
     }
 
@@ -127,5 +131,76 @@ public class MainActivity extends AppCompatActivity {
     public void emptyDll() {
         myDoublyLinkedList.clearAll();
         Log.i("TAG", "DLL size after empty - " + myDoublyLinkedList.getLinked_list_size());
+    }
+
+    //Stack operations
+    private void pushandpoptrial() {
+        MyStack<Car> carStack = new MyStack<>(30);
+        //Add new items to the stack
+        for (int i = 0; i < 10; i++) {
+            carStack.push(new Car("Car " + i, "Color " + i, "Manufacturer " + i));
+        }
+        Car topCar = carStack.peekTop();
+        //Get top item
+        Log.i("TAG", "Top item in stack is " + topCar.name);
+
+        //Now pop 2 items from stack
+        for (int i = 0; i < 2; i++) {
+            carStack.pop();
+        }
+
+        //Again get top Car
+        topCar = carStack.peekTop();
+        //Get top item
+        Log.i("TAG", "Top item in stack is " + topCar.name);
+    }
+
+    //This method uses stack to validate input brackets string
+    private void validateBrackets(String inputbrackets) {
+        MyStack<Character> myStack = new MyStack<>(40);
+        Character reverse_c = null;
+        //Loop through elements in the string
+        for (int i = 0; i < inputbrackets.length(); i++) {
+            Character c = inputbrackets.charAt(i);
+            if (myStack.getStackSize() == 0) {
+                //add first element to the stack
+                myStack.push(c);
+                Log.i("TAG", "Pushed  :" + c);
+            } else if (c.equals(reverse_c)) {
+                //If matches then pop from stack
+                Character pop_char = myStack.pop();
+                Log.i("TAG", "Popped  :" + pop_char);
+            } else {
+                //else add to stack
+                myStack.push(c);
+                Log.i("TAG", "Pushed  :" + c);
+            }
+            if (myStack.getStackSize() > 0) {
+                //Determine reverse of top character
+                Character top = myStack.peekTop();
+                reverse_c = getReverse(top);
+                Log.i("TAG", "Reverse char  :" + reverse_c);
+            }
+        }
+        //at end if stack is empty then string is valid
+        if (myStack.getStackSize() == 0) {
+            Log.i("TAG", "String is valid");
+        } else {
+            Log.i("TAG", "String is invalid");
+        }
+    }
+
+
+    private Character getReverse(Character input) {
+        switch (input) {
+            case '{':
+                return '}';
+            case '(':
+                return ')';
+            case '[':
+                return ']';
+            default:
+                return null;
+        }
     }
 }

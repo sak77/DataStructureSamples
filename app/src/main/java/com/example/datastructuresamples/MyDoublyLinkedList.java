@@ -60,7 +60,7 @@ public class MyDoublyLinkedList<T> implements Iterable<T> {
         linked_list_size++;
     }
 
-    //Add node to end of list
+    //Add node to end of list - O(1)
     public void addLastElement(T element) {
         //if LL is empty then simply create a new node and have it assigned as head and tail and set size to 1
         if (linked_list_size == 0) {
@@ -76,7 +76,7 @@ public class MyDoublyLinkedList<T> implements Iterable<T> {
         linked_list_size++;
     }
 
-    //Add node at specific index
+    //Add node at specific index - O(n)
     public void addElementAt(T element, int index) {
         //Check if index is within size.
         if (index < linked_list_size) {
@@ -104,7 +104,7 @@ public class MyDoublyLinkedList<T> implements Iterable<T> {
         }
     }
 
-    //Remove node from start of the list
+    //Remove node from start of the list - O(1)
     public void removeItemAtStart() {
         if (linked_list_size == 0) {
             Log.i("TAG", "List is empty");
@@ -120,7 +120,8 @@ public class MyDoublyLinkedList<T> implements Iterable<T> {
         linked_list_size--;
     }
 
-    //Remove node from end of the list
+    //Remove node from end of the list - O(1)
+    //However, in case of singly LL, since we have to traverse the full list, it would be O(n)
     public void removeItemAtEnd() {
         if (linked_list_size == 0) {
             Log.i("TAG", "List is empty");
@@ -135,7 +136,7 @@ public class MyDoublyLinkedList<T> implements Iterable<T> {
         linked_list_size--;
     }
 
-    //Find index of node in the list
+    //Find index of node in the list - O(n)
     public int getIndexOf(T element) {
         //Get pointer to head
         Node<T> current_node = head;
@@ -147,7 +148,7 @@ public class MyDoublyLinkedList<T> implements Iterable<T> {
         return -1;  //Index not found
     }
 
-    //Find node at index
+    //Find node at index - O(n)
     public T getElementAtIndex(int index) {
         //Get pointer to head
         Node<T> current_node = head;

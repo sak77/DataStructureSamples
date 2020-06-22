@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         //workWithDynamicArrays();
         //dllOperations();
         //pushandpoptrial();
-        validateBrackets("[]{}({})");
+        //validateBrackets("[]{}({})");
+        workWithQueues();
     }
 
 
@@ -190,7 +191,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private Character getReverse(Character input) {
         switch (input) {
             case '{':
@@ -203,4 +203,26 @@ public class MainActivity extends AppCompatActivity {
                 return null;
         }
     }
+
+    //Working with Queues
+    public void workWithQueues() {
+        MyDLLQueue<Car> myAssemblyQueue = new MyDLLQueue<>();
+        //MyArrayBasedQueue<Car> myAssemblyQueue = new MyArrayBasedQueue<>(20);
+
+        //Enqueue new Cars to the queue
+        myAssemblyQueue.enqueue(new Car("Ford", "Grey", "Ford Motors"));
+
+        for (Car currentCar: myAssemblyQueue) {
+            Log.i("TAG", "Car in queue " + currentCar.name);
+        }
+        //Now once car is ready then dequeue it from the queue
+        try {
+            myAssemblyQueue.dequeue();
+
+            Log.i("TAG", "Cars remaining in queue " + myAssemblyQueue.getQueueSize());
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
 }
